@@ -85,59 +85,63 @@ class _HomeMaterialState extends State<HomeMaterial> {
       body: FutureBuilder(
         future: dadosCotacoes,
         builder: (context, snapshot) {
-
-          String name = snapshot.data!["results"]["currencies"]["USD"]["name"];
-          double buy = snapshot.data!["results"]["currencies"]["USD"]["buy"];
-          double sell = snapshot.data!["results"]["currencies"]["USD"]["sell"];
-          double variation = snapshot.data!["results"]["currencies"]["USD"]["variation"];
-
-          return const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // main card
-                CardCotacaoDollar(),
-                SizedBox(height: 20),
-                Text(
-                  'Outras moedas',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+          if (snapshot.connectionState == ConnectionState.waiting){
+            return CircularProgressIndicator();
+          }
+          if (snapshot.hasData){
+            String name = snapshot.data!["results"]["currencies"]["USD"]["name"];
+            double buy = snapshot.data!["results"]["currencies"]["USD"]["buy"];
+            double sell = snapshot.data!["results"]["currencies"]["USD"]["sell"];
+            double variation = snapshot.data!["results"]["currencies"]["USD"]["variation"];
+            return const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // main card
+                  CardCotacaoDollar(),
+                  SizedBox(height: 20),
+                  Text(
+                    'Outras moedas',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                SizedBox(height: 8),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
+                  SizedBox(height: 8),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        CardOutrasMoedas(),
+                        CardOutrasMoedas(),
+                        CardOutrasMoedas(),
+                        CardOutrasMoedas(),
+                        CardOutrasMoedas(),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    'Bolsa de Valores',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      CardOutrasMoedas(),
-                      CardOutrasMoedas(),
-                      CardOutrasMoedas(),
-                      CardOutrasMoedas(),
-                      CardOutrasMoedas(),
+                      CardBolsaValores(),
+                      CardBolsaValores(),
                     ],
                   ),
-                ),
-                SizedBox(height: 20),
-                Text(
-                  'Bolsa de Valores',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    CardBolsaValores(),
-                    CardBolsaValores(),
-                  ],
-                ),
-              ],
-            ),
-          );
+                ],
+              ),
+            );
+          }
+          return Text("Algum erro aconteceu");
         }
       ),
     );
