@@ -1,9 +1,11 @@
 
+import 'package:cotacoes_app/moeda.dart';
 import 'package:flutter/material.dart';
 
 class CardOutrasMoedas extends StatelessWidget {
+  final Moeda moeda;
   const CardOutrasMoedas({
-    super.key,
+    super.key, required this.moeda,
   });
 
   @override
@@ -16,10 +18,10 @@ class CardOutrasMoedas extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
         ),
-        child: const Column(
+        child: Column(
           children: [
             Text(
-              "EURO",
+              "${moeda.name}",
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -27,13 +29,13 @@ class CardOutrasMoedas extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              "5.2597",
+              "${moeda.sell}",
               style: TextStyle(
                 fontSize: 16,
               ),
             ),
             SizedBox(height: 8),
-            Text("-0.011"),
+            Text("${moeda.variation}"),
           ],
         ),
       ),

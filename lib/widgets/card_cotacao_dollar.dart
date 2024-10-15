@@ -1,9 +1,14 @@
 
 import 'package:flutter/material.dart';
 
+import '../moeda.dart';
+
 class CardCotacaoDollar extends StatelessWidget {
+
+  final Moeda moeda;
+
   const CardCotacaoDollar({
-    super.key,
+    super.key, required this.moeda
   });
 
   @override
@@ -15,12 +20,12 @@ class CardCotacaoDollar extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
-        child: const Padding(
+        child:  Padding(
           padding: EdgeInsets.all(16.0),
           child: Column(
             children: [
               Text(
-                'Dollar',
+                '${moeda.name}',
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
@@ -28,13 +33,13 @@ class CardCotacaoDollar extends StatelessWidget {
               ),
               SizedBox(height: 16),
               Text(
-                'R\$ 4.9544',
+                'R\$ ${moeda.sell}',
                 style: TextStyle(
                   fontSize: 20,
                 ),
               ),
               Text(
-                '+0,00',
+                '${moeda.variation}',
                 style: TextStyle(
                   fontSize: 12,
                 ),
